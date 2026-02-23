@@ -1,0 +1,17 @@
+{
+  "name": "k6-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "test": "mocha test/**/*.js --reporter mochawesome --reporter-options reportDir=mochawesome-report,reportFilename=mochawesome,quiet=true"
+},
+
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "k6-html-reporter": "^1.0.5"
+  }
+}

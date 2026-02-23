@@ -1,0 +1,22 @@
+{
+  "name": "api-automation-mocha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "test": "mocha --reporter mochawesome --reporter-options reportDir=mochawesome-report,reportFilename=mochawesome,quiet=true"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "chai": "^4.5.0",
+    "chai-json-schema": "^1.5.1",
+    "mocha": "^11.7.5",
+    "nock": "^14.0.10"
+  },
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  }
+}

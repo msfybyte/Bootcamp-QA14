@@ -1,0 +1,320 @@
+{
+  "info": {
+    "_postman_id": "0e61fb2a-1605-4ab4-b877-bfa67bc4756d",
+    "name": "Muhammad Sofyan – Batch 14",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "52020782",
+    "_collection_link": "https://go.postman.co/collection/52020782-0e61fb2a-1605-4ab4-b877-bfa67bc4756d?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Assert 1: Status Code harus 200",
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "// Assert 2: Response body memiliki token",
+              "pm.test(\"Response has token\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('token');",
+              "    pm.expect(jsonData.token).to.be.a('string');",
+              "});",
+              "",
+              "// Simpan token ke Collection Variable",
+              "var jsonData = pm.response.json();",
+              "if (jsonData.token) {",
+              "    pm.collectionVariables.set(\"token\", jsonData.token);",
+              "    console.log(\"Token saved: \" + jsonData.token);",
+              "}",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              "// Cek apakah token ada\r",
+              "var token = pm.collectionVariables.get(\"token\");\r",
+              "if (!token) {\r",
+              "    console.log(\"⚠️ Warning: Token not found. Please run Login request first.\");\r",
+              "}\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://belajar-bareng.onrender.com/api/login",
+          "protocol": "https",
+          "host": [
+            "belajar-bareng",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Users",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Assert 1: Status Code harus 200",
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "// Assert 2: Response body memiliki users array",
+              "pm.test(\"Response body contains users array\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property('users');",
+              "    pm.expect(jsonData.users).to.be.an('array');",
+              "    pm.expect(jsonData.users.length).to.be.greaterThan(0);",
+              "});",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzcwMTc1MTA2LCJleHAiOjE3NzAxNzg3MDZ9.0wYWrVUlmow_7Tia3V4wMIKIC8YAGa-dcS2NZBZQ30E"
+          }
+        ],
+        "url": {
+          "raw": "https://belajar-bareng.onrender.com/api/users",
+          "protocol": "https",
+          "host": [
+            "belajar-bareng",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Add User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Assert 1: Status Code harus 200 or 201",
+              "pm.test(\"Status code is 200 or 201\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200,201]);",
+              "});",
+              "",
+              "// Assert 2: Response body memiliki username",
+              "pm.test(\"Response contains username\", function () {",
+              "    pm.expect(pm.response.text()).to.include(\"Muhammad Sofyan\");",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzcwMTc1MTA2LCJleHAiOjE3NzAxNzg3MDZ9.0wYWrVUlmow_7Tia3V4wMIKIC8YAGa-dcS2NZBZQ30E"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\": \"Muhammad Sofyan\",\n    \"age\": 25\n}"
+        },
+        "url": {
+          "raw": "https://belajar-bareng.onrender.com/api/add-user",
+          "protocol": "https",
+          "host": [
+            "belajar-bareng",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "add-user"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Assert 1: Status Code harus 200 or 201",
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "// Assert 2: Response body harus mengandung updated username or age (harus mengambl userId)",
+              "pm.test(\"Response updated\", function () {",
+              "    pm.expect(pm.response.text()).to.include(\"30\");",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzcwMTc2Mzk1LCJleHAiOjE3NzAxNzk5OTV9.LtGzNjyfRnD-jiTymZRY2HHuJGikaTMk9oJlV3Phezc"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"Muhammad Sofyan Muhammad\",\n  \"age\": 30\n}"
+        },
+        "url": {
+          "raw": "https://belajar-bareng.onrender.com/api/update-user/6982c80de10c7eb3949bc454",
+          "protocol": "https",
+          "host": [
+            "belajar-bareng",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "update-user",
+            "6982c80de10c7eb3949bc454"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// Assert 1: Status Code harus 200",
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "// Assert 2: Response harus mengandung userId yang dihapus (ada di Add Users)",
+              "pm.test(\"Delete success\", function () {",
+              "    pm.expect(pm.response.text()).to.include(\"success\");",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzcwMTc1MTA2LCJleHAiOjE3NzAxNzg3MDZ9.0wYWrVUlmow_7Tia3V4wMIKIC8YAGa-dcS2NZBZQ30E"
+          }
+        ],
+        "url": {
+          "raw": "https://belajar-bareng.onrender.com/api/delete-user/6982c80de10c7eb3949bc454",
+          "protocol": "https",
+          "host": [
+            "belajar-bareng",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "delete-user",
+            "6982c80de10c7eb3949bc454"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
+    }
+  ]
+}
